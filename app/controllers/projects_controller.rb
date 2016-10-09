@@ -1,5 +1,7 @@
 class ProjectsController < ApplicationController
   before_action :find_project, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:index, :show]
+  
   def index
     @projects = Project.all.order("created_at DESC")
   end
@@ -34,7 +36,7 @@ class ProjectsController < ApplicationController
 
   def destroy
     @project.destroy
-    redirect_to projects_path 
+    redirect_to projects_path
   end
 
   private
